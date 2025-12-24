@@ -1,4 +1,5 @@
-import Navbar from "./components/Navbar"; // This points to your new file
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer"; // Import the new Footer file
 import "./globals.css";
 
 export default function RootLayout({
@@ -8,12 +9,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="antialiased">
-        {/* This Navbar will now show on EVERY page of Testorbit */}
-        <Navbar /> 
-        
-        {/* This 'children' tag is where your page.tsx content will load */}
-        <main>{children}</main>
+      <body className="antialiased min-h-screen flex flex-col bg-neutral-950 text-white">
+        <Navbar />
+        <main className="flex-grow pt-20">
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   );

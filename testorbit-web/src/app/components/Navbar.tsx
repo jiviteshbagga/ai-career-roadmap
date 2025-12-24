@@ -1,77 +1,119 @@
 "use client";
 import React, { useState } from 'react';
-import Link from 'next/link';
+import { ChevronDown, Search, Flame, Beaker, Shield, Activity, Settings, Users, Award, BookOpen, Globe, Mail } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronDown, Search, Flame, Shield, Activity, Beaker } from 'lucide-react';
 
-const categories = [
-  { name: "Calorimetry", icon: <Flame size={18} /> },
-  { name: "Fire Resistance", icon: <Shield size={18} /> },
-  { name: "Flammability", icon: <Activity size={18} /> },
-  { name: "Glow Wire", icon: <Beaker size={18} /> },
-  { name: "Smoke Density", icon: <Shield size={18} /> },
-  { name: "Toxicity Analysis", icon: <Activity size={18} /> },
-];
+// --- DATA STRUCTURE ---
+const menuData = {
+  products: [
+    "Calorimetry (Heat Release)", "Fire Resistance", "Flammability", 
+    "Glow Wire & Needle Flame", "Ignitability & Propagation", "Melt Flow & Viscosity",
+    "Oxygen Index (LOI)", "Smoke Density & Opacity", "Thermal Deflection",
+    "Thermal Conductivity", "Toxicity & Gas Analysis", "Weathering & Aging"
+  ],
+  solutions: {
+    industries: ["Mobility", "Infrastructure & Construction", "Electrical & Electronics", "Protective & Safety Gear", "Materials Manufacturing", "Research & Compliance"],
+    materials: ["Plastics & Polymers", "Textiles & Fabrics", "Cellular Materials (Foams)", "Electrical Cables & Wires", "Composites", "Rubber & Elastomers"],
+    standards: ["ASTM", "ISO", "Other Global Standards"],
+    types: ["Flammability & Ignitability", "Thermal Properties", "Heat Release", "Smoke & Toxicity", "Fire Resistance"]
+  },
+  services: ["Installation & Commissioning", "Calibration Services (NABL)", "Remote Software Support"],
+  company: ["About Us", "History", "Careers", "Certifications", "Facility Tour", "Contact"]
+};
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isMegaMenuOpen, setMegaMenuOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState<string | null>(null);
 
   return (
-    <nav className="fixed w-full z-50 bg-industrial-900/80 backdrop-blur-md border-b border-white/10">
-      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+    <nav className="fixed w-full z-50 bg-neutral-950 border-b border-white/10 text-white font-sans" onMouseLeave={() => setActiveTab(null)}>
+      <div className="max-w-[1440px] mx-auto px-8 h-20 flex items-center justify-between">
+        
         {/* LOGO */}
-        <Link href="/" className="text-2xl font-bold tracking-tighter text-white">
-          TESTORBIT<span className="text-industrial-accent">.</span>
-        </Link>
-
-        {/* DESKTOP LINKS */}
-        <div className="hidden md:flex items-center space-x-8 text-sm font-medium text-white/70">
-          <div 
-            className="relative group"
-            onMouseEnter={() => setMegaMenuOpen(true)}
-            onMouseLeave={() => setMegaMenuOpen(false)}
-          >
-            <button className="flex items-center space-x-1 hover:text-white transition py-8">
-              <span>Products</span>
-              <ChevronDown size={14} />
-            </button>
-
-            {/* MEGA MENU DROP DOWN */}
-            <AnimatePresence>
-              {isMegaMenuOpen && (
-                <motion.div 
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }}
-                  className="absolute top-full -left-20 w-[600px] bg-industrial-800 border border-white/10 p-8 grid grid-cols-2 gap-6 rounded-xl shadow-2xl"
-                >
-                  {categories.map((cat) => (
-                    <Link key={cat.name} href={`/products/${cat.name.toLowerCase().replace(/ /g, '-')}`} className="flex items-center space-x-3 p-3 rounded-lg hover:bg-white/5 group transition">
-                      <div className="text-industrial-accent group-hover:scale-110 transition">{cat.icon}</div>
-                      <span className="text-white group-hover:text-industrial-accent">{cat.name}</span>
-                    </Link>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-
-          <Link href="/solutions" className="hover:text-white transition">Testing Solutions</Link>
-          <Link href="/services" className="hover:text-white transition">Services</Link>
+        <div className="flex items-center space-x-2 cursor-pointer">
+          <div className="w-8 h-8 bg-red-600 rounded-sm flex items-center justify-center font-bold text-xl">T</div>
+          <span className="text-2xl font-black tracking-tighter uppercase">TestOrbit</span>
         </div>
 
-        {/* SEARCH & MOBILE TOGGLE */}
-        <div className="flex items-center space-x-4">
-          <div className="hidden lg:flex items-center bg-white/5 border border-white/10 px-3 py-1.5 rounded-md">
-            <Search size={16} className="text-white/40 mr-2" />
-            <input type="text" placeholder="Search Standards..." className="bg-transparent outline-none text-xs w-32 focus:w-48 transition-all" />
-          </div>
-          <button className="md:hidden text-white" onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+        {/* NAV LINKS */}
+        <div className="hidden lg:flex items-center space-x-8">
+          {['Products', 'Testing Solutions', 'Services', 'Company'].map((item) => (
+            <button 
+              key={item}
+              onMouseEnter={() => setActiveTab(item)}
+              className="group flex items-center space-x-1 py-7 text-sm font-semibold uppercase tracking-widest hover:text-red-500 transition"
+            >
+              <span>{item}</span>
+              <ChevronDown size={14} className={`transition-transform ${activeTab === item ? 'rotate-180' : ''}`} />
+            </button>
+          ))}
+          <a href="#" className="text-sm font-semibold uppercase tracking-widest hover:text-red-500">FAQ's</a>
+        </div>
+
+        {/* SEARCH BOX */}
+        <div className="relative flex items-center">
+          <input type="text" placeholder="Search Standards (ASTM, ISO)..." className="bg-white/5 border border-white/20 rounded-full py-2 px-10 text-xs w-64 focus:w-80 transition-all outline-none focus:border-red-600" />
+          <Search className="absolute left-3 text-white/40" size={16} />
         </div>
       </div>
+
+      {/* DYNAMIC MEGA MENU PANEL */}
+      <AnimatePresence>
+        {activeTab && (
+          <motion.div 
+            initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -5 }}
+            className="absolute left-0 w-full bg-[#0a0a0a] border-b border-white/10 shadow-2xl"
+          >
+            <div className="max-w-[1440px] mx-auto p-12">
+              
+              {/* Products View */}
+              {activeTab === 'Products' && (
+                <div className="grid grid-cols-4 gap-y-4 gap-x-8">
+                  {menuData.products.map(p => (
+                    <a key={p} href="#" className="text-neutral-400 hover:text-white text-sm flex items-center space-x-2 group">
+                      <span className="w-1.5 h-1.5 bg-red-600 rounded-full opacity-0 group-hover:opacity-100 transition" />
+                      <span>{p}</span>
+                    </a>
+                  ))}
+                </div>
+              )}
+
+              {/* Testing Solutions View */}
+              {activeTab === 'Testing Solutions' && (
+                <div className="grid grid-cols-4 gap-10">
+                  <div>
+                    <h3 className="text-red-600 font-bold text-xs uppercase mb-4 flex items-center"><Globe size={14} className="mr-2"/> By Industry</h3>
+                    {menuData.solutions.industries.map(i => <a key={i} href="#" className="block py-1 text-sm text-neutral-400 hover:text-white">{i}</a>)}
+                  </div>
+                  <div>
+                    <h3 className="text-red-600 font-bold text-xs uppercase mb-4 flex items-center"><Beaker size={14} className="mr-2"/> By Material</h3>
+                    {menuData.solutions.materials.map(m => <a key={m} href="#" className="block py-1 text-sm text-neutral-400 hover:text-white">{m}</a>)}
+                  </div>
+                  <div>
+                    <h3 className="text-red-600 font-bold text-xs uppercase mb-4 flex items-center"><Award size={14} className="mr-2"/> By Standard</h3>
+                    {menuData.solutions.standards.map(s => <a key={s} href="#" className="block py-1 text-sm text-neutral-400 hover:text-white">{s}</a>)}
+                  </div>
+                  <div className="bg-white/5 p-6 rounded-lg">
+                    <h3 className="text-white font-bold text-sm mb-2">Need a Custom Solution?</h3>
+                    <p className="text-neutral-400 text-xs mb-4">Our engineers design bespoke fire testing rigs for unique requirements.</p>
+                    <button className="bg-red-600 px-4 py-2 text-xs font-bold rounded">Inquire Now</button>
+                  </div>
+                </div>
+              )}
+
+              {/* Company/Services View */}
+              {(activeTab === 'Services' || activeTab === 'Company') && (
+                <div className="flex space-x-20">
+                    {(activeTab === 'Services' ? menuData.services : menuData.company).map(item => (
+                        <a key={item} href="#" className="text-xl font-light text-neutral-400 hover:text-white hover:translate-x-2 transition-transform inline-block">
+                           {item}
+                        </a>
+                    ))}
+                </div>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }
