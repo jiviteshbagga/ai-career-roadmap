@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="AI-powered career roadmap finder. Discover your ideal career path, get personalized skill recommendations, and connect with top professionals." />
+  <title>AI Career Roadmap Finder — Your AI-Powered Career GPS</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧭</text></svg>" />
+</head>
+
+<body>
+
+  <!-- Glow orbs -->
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+  <div class="glow-orb orb-3"></div>
+
+  <!-- Particle canvas -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- NAV -->
+  <nav id="main-nav">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-icon">🧭</div>
+      <div class="logo-text">
+        <span class="logo-name">CareerAI</span>
+        <span class="logo-tagline">Your Career GPS</span>
+      </div>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#explore">Explore Careers</a></li>
+      <li><a href="#" class="nav-cta" onclick="document.getElementById('search-input').focus();return false;">Get
+          Started</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        AI-Powered Career Navigation
+      </div>
+
+      <h1>
+        Find Your<br />
+        <span class="gradient-text">Perfect Career Path</span>
+      </h1>
+
+      <p>Drop your portfolio into the AI analyzer, search any career, and get a step-by-step roadmap with top
+        professionals to follow.</p>
+
+      <!-- SEARCH -->
+      <div class="search-container">
+        <div class="search-wrapper">
+          <span class="search-icon">🔍</span>
+          <input id="search-input" type="text" placeholder="Search a career (e.g., Machine Learning, DevOps, UI/UX…)"
+            autocomplete="off" spellcheck="false" />
+          <button id="search-btn" class="search-btn">
+            <span>Find Roadmap</span> →
+          </button>
+          <!-- AUTOCOMPLETE DROPDOWN is appended to body by JS -->
+        </div>
+      </div>
+
+      <!-- PORTFOLIO AI SECTION -->
+      <div class="portfolio-section">
+        <button id="portfolio-toggle" class="portfolio-toggle">
+          ✨ Paste your portfolio for AI skill recommendations
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </button>
+        <div id="portfolio-box" class="portfolio-box">
+          <label>Your Bio / Skills / Resume Snippet</label>
+          <textarea id="portfolio-text"
+            placeholder="e.g., I'm a developer with 2 years of experience in React, Node.js, and PostgreSQL. I've built REST APIs, worked with Docker, and recently started learning machine learning with Python and scikit-learn..."></textarea>
+          <button id="analyze-btn" class="analyze-btn">✨ Analyze My Portfolio</button>
+        </div>
+      </div>
+
+      <!-- SKILL CHIPS -->
+      <div class="skill-recommendations">
+        <p id="chips-label" class="chips-label">Popular Career Paths</p>
+        <div id="chips-container" class="chips-container"></div>
+      </div>
+
+      <!-- STATS -->
+      <div class="stats-section">
+        <div class="stat-item">
+          <div class="stat-number">50+</div>
+          <div class="stat-label">Career Paths</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">200+</div>
+          <div class="stat-label">Learning Steps</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">200+</div>
+          <div class="stat-label">Top Professionals</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">AI</div>
+          <div class="stat-label">Powered Analysis</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FEATURES ===== -->
+    <section class="features-section" id="features">
+      <div class="section-header">
+        <div class="section-tag">Why CareerAI</div>
+        <h2 class="section-title">Everything you need to chart your career</h2>
+        <p class="section-subtitle">Powered by AI, curated by industry experts</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon" style="background: rgba(99,102,241,0.15);">🤖</div>
+          <h3>AI Portfolio Analysis</h3>
+          <p>Paste your bio or skills and our AI instantly recommends the most relevant career paths for your
+            background.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon" style="background: rgba(168,85,247,0.15);">🗺️</div>
+          <h3>Step-by-Step Roadmaps</h3>
+          <p>Detailed phase-by-phase learning roadmaps from foundation to expert level, with curated resources at every
+            step.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon" style="background: rgba(6,182,212,0.15);">👥</div>
+          <h3>Top Professional Profiles</h3>
+          <p>Discover and follow the world's leading professionals in your chosen field, with direct LinkedIn links.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon" style="background: rgba(16,185,129,0.15);">⚡</div>
+          <h3>Instant Search</h3>
+          <p>Smart autocomplete search with fuzzy matching across 15+ career paths and hundreds of keyword aliases.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== EXPLORE CAREERS ===== -->
+    <section class="careers-section" id="explore">
+      <div class="section-header">
+        <div class="section-tag">Explore</div>
+        <h2 class="section-title">Browse All Career Paths</h2>
+        <p class="section-subtitle">Click any career to view the full roadmap</p>
+      </div>
+
+      <div class="careers-grid">
+        <a class="career-card" href="roadmap.html?skill=machine-learning-engineer">
+          <span class="career-emoji">🤖</span>
+          <div class="career-name">ML Engineer</div>
+          <div class="career-category">AI & Data</div>
+        </a>
+        <a class="career-card" href="roadmap.html?skill=data-scientist">
+          <span class="career-emoji">📊</span>
+          <div class="career-name">Data Scientist</div>
+          <div class="career-category">AI & Data</div>
+        </a>
+        <a class="career-card" href="roadmap.html?skill=data-engineer">
+          <span class="career-emoji">🔄</span>
+          <div class="career-name">Data Engineer</div>
+          <div class="career-category">AI & Data</div>
+        </a>
+        <a class="career-card" href="roadmap.html?skill=frontend-developer">
+          <span class="career-emoji">🎨</span>
+          <div class="career-name">Frontend Dev</div>
+          <div class="career-category">Web</div>
+        </a>
+        <a class="career-card" href="roadmap.html?skill=backend-developer">
+          <span class="career-emoji">⚙️</span>
+          <div class="career-name">Backend Dev</div>
+          <div class="career-category">Web</div>
+        </a>
+        <a class="career-card" href="roadmap.html?skill=full-stack-developer">
+          <span class="career-emoji">🚀</span>
+          <div class="career-name">Full Stack Dev</div>
+          <div class="career-category">Web</div>
+        </a>
+        <a class="career-card" href="roadmap.html?skill=devops-engineer">
+          <span class="career-emoji">🔧</span>
+          <div class="career-name">DevOps Engineer</div>
+          <div class="career-category">Infrastructure</div>
+        </a>
+        <a class="career-card" href="roadmap.html?skill=cloud-architect">
+          <span class="career-emoji">☁️</span>
+          <div class="career-name">Cloud Architect</div>
+          <div class="career-category">Infrastructure</div>
+        </a>
+        <a class="career-card" href="roadmap.html?skill=cybersecurity-analyst">
+          <span class="career-emoji">🛡️</span>
+          <div class="career-name">Cybersecurity</div>
+          <div class="career-category">Security</div>
+        </a>
+        <a class="career-card" href="roadmap.html?skill=uiux-designer">
+          <span class="career-emoji">✏️</span>
+          <div class="career-name">UI/UX Designer</div>
+          <div class="career-category">Design</div>
+        </a>
+        <a class="career-card" href="roadmap.html?skill=mobile-developer">
+          <span class="career-emoji">📱</span>
+          <div class="career-name">Mobile Dev</div>
+          <div class="career-category">Mobile</div>
+        </a>
+        <a class="career-card" href="roadmap.html?skill=blockchain-developer">
+          <span class="career-emoji">⛓️</span>
+          <div class="career-name">Blockchain Dev</div>
+          <div class="career-category">Emerging Tech</div>
+        </a>
+        <a class="career-card" href="roadmap.html?skill=product-manager">
+          <span class="career-emoji">📋</span>
+          <div class="career-name">Product Manager</div>
+          <div class="career-category">Business</div>
+        </a>
+        <a class="career-card" href="roadmap.html?skill=game-developer">
+          <span class="career-emoji">🎮</span>
+          <div class="career-name">Game Developer</div>
+          <div class="career-category">Creative Tech</div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="footer-glow"></div>
+    <div class="footer-inner">
+
+      <!-- Brand -->
+      <div class="footer-brand">
+        <a href="index.html" class="footer-logo-link">
+          <div class="footer-logo-icon">🧭</div>
+          <span class="footer-logo-name">CareerAI</span>
+        </a>
+        <p class="footer-tagline">India's AI-powered career navigation platform. Discover your path, master the skills,
+          and connect with real mentors.</p>
+        <div class="footer-badges">
+          <span class="footer-badge">🤖 AI-Powered</span>
+          <span class="footer-badge">🆓 Free Forever</span>
+          <span class="footer-badge">🇮🇳 Made for India</span>
+        </div>
+      </div>
+
+      <!-- Platform Links -->
+      <div class="footer-col">
+        <h4 class="footer-col-title">Platform</h4>
+        <ul class="footer-links">
+          <li><a href="#features">✦ Features</a></li>
+          <li><a href="#explore">✦ All Careers</a></li>
+          <li><a href="roadmap.html?skill=machine-learning-engineer">✦ Sample Roadmap</a></li>
+          <li><a href="#" onclick="document.getElementById('portfolio-toggle').click();return false;">✦ Portfolio
+              Analyzer</a></li>
+        </ul>
+      </div>
+
+      <!-- Career Fields -->
+      <div class="footer-col">
+        <h4 class="footer-col-title">Career Fields</h4>
+        <ul class="footer-links">
+          <li><a href="roadmap.html?skill=machine-learning-engineer">✦ AI &amp; ML</a></li>
+          <li><a href="roadmap.html?skill=frontend-developer">✦ Web Development</a></li>
+          <li><a href="roadmap.html?skill=devops-engineer">✦ DevOps &amp; Cloud</a></li>
+          <li><a href="roadmap.html?skill=cybersecurity-analyst">✦ Cybersecurity</a></li>
+          <li><a href="roadmap.html?skill=data-scientist">✦ Data Science</a></li>
+          <li><a href="roadmap.html?skill=uiux-designer">✦ UI/UX Design</a></li>
+        </ul>
+      </div>
+
+      <!-- About -->
+      <div class="footer-col">
+        <h4 class="footer-col-title">About</h4>
+        <ul class="footer-links">
+          <li><a href="#" data-modal="mission">✦ Our Mission</a></li>
+          <li><a href="#" data-modal="how-it-works">✦ How It Works</a></li>
+          <li><a href="#" data-modal="privacy">✦ Privacy Policy</a></li>
+          <li><a href="#" data-modal="opensource">✦ Open Source</a></li>
+        </ul>
+        <div class="footer-live-wrap">
+          <span class="footer-live-badge"><span class="live-dot"></span> 50+ Careers Live</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Divider -->
+    <div class="footer-divider"></div>
+
+    <!-- Bottom bar -->
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 <strong>CareerAI</strong> — All rights reserved.</p>
+      <p class="footer-bottom-right">
+        <a href="#features">Features</a> ·
+        <a href="#explore">Careers</a> ·
+        <a href="index.html" class="footer-top-link">Back to Top ↑</a>
+      </p>
+    </div>
+  </footer>
+  <!-- ===== ABOUT MODALS ===== -->
+  <div id="about-modal-overlay" class="about-modal-overlay" aria-hidden="true">
+    <div class="about-modal-box" role="dialog" aria-modal="true">
+      <button class="about-modal-close" id="about-modal-close" aria-label="Close">✕</button>
+
+      <!-- Our Mission -->
+      <div class="about-panel" id="panel-mission">
+        <div class="about-panel-hero">
+          <div class="about-panel-icon">🎯</div>
+          <h2>Our Mission</h2>
+          <p class="about-panel-sub">Democratising career clarity for every student in India</p>
+        </div>
+        <p>CareerAI was built on one belief: <strong>every student — regardless of college or city — deserves a clear,
+            personalised career roadmap.</strong> We combine curated expert knowledge with AI to deliver step-by-step
+          guidance across 50+ career paths.</p>
+        <ul class="about-list">
+          <li>🚀 <span><strong>Free forever</strong> — no paywalls, no sign-ups required</span></li>
+          <li>🇮🇳 <span><strong>India-first</strong> — built around Indian exams, boards &amp; industry</span></li>
+          <li>🤖 <span><strong>AI-powered</strong> — smart portfolio analysis &amp; career matching</span></li>
+          <li>🔗 <span><strong>Real mentors</strong> — connect with professionals who've walked the path</span></li>
+          <li>🗺️ <span><strong>50+ roadmaps</strong> — from ML to Medicine, UPSC to UI/UX</span></li>
+        </ul>
+        <div class="about-cta-row">
+          <button class="about-cta-btn" onclick="document.getElementById('search-input').focus(); closeModal();">🔍
+            Explore Careers</button>
+        </div>
+      </div>
+
+      <!-- How It Works -->
+      <div class="about-panel" id="panel-how-it-works">
+        <div class="about-panel-hero">
+          <div class="about-panel-icon">⚙️</div>
+          <h2>How It Works</h2>
+          <p class="about-panel-sub">Four simple steps to your perfect career path</p>
+        </div>
+        <div class="how-steps">
+          <div class="how-step">
+            <span class="step-num">1</span>
+            <div>
+              <strong>Search Any Career</strong>
+              <p>Type a career, skill, or keyword in the search bar. Our fuzzy-matching engine finds the right roadmap
+                instantly from 50+ options.</p>
+            </div>
+          </div>
+          <div class="how-step">
+            <span class="step-num">2</span>
+            <div>
+              <strong>Get Your Roadmap</strong>
+              <p>See a phase-by-phase learning path — from foundation to expert — with curated resources, tools, and
+                milestones at every step.</p>
+            </div>
+          </div>
+          <div class="how-step">
+            <span class="step-num">3</span>
+            <div>
+              <strong>Paste Your Portfolio</strong>
+              <p>Drop your bio or resume snippet into the AI analyzer. It reads your skills and recommends the careers
+                that best match your background.</p>
+            </div>
+          </div>
+          <div class="how-step">
+            <span class="step-num">4</span>
+            <div>
+              <strong>Follow Real Professionals</strong>
+              <p>Every roadmap surfaces verified industry leaders in that field. Connect on LinkedIn for mentorship and
+                networking.</p>
+            </div>
+          </div>
+        </div>
+        <div class="about-cta-row">
+          <button class="about-cta-btn" onclick="document.getElementById('search-input').focus(); closeModal();">🚀 Try
+            It Now</button>
+        </div>
+      </div>
+
+
+      <!-- Privacy Policy -->
+      <div class="about-panel" id="panel-privacy">
+        <div class="about-panel-hero">
+          <div class="about-panel-icon">🔒</div>
+          <h2>Privacy Policy</h2>
+          <p class="about-panel-sub">Effective date: February 2025</p>
+        </div>
+        <p>CareerAI is built with your privacy as a first principle. Here's exactly what we do and don't do:</p>
+        <ul class="about-list">
+          <li>✅ <span><strong>No account required</strong> — we never collect your name, email, or personal data</span>
+          </li>
+          <li>✅ <span><strong>No data stored</strong> — portfolio text is analysed entirely in-browser, never sent to
+              any server</span></li>
+          <li>✅ <span><strong>No trackers</strong> — we don't use advertising SDKs or sell your data to third
+              parties</span></li>
+          <li>✅ <span><strong>LinkedIn links</strong> — clicking profiles opens LinkedIn in a new tab; their privacy
+              policy applies</span></li>
+          <li>✅ <span><strong>Local storage only</strong> — used solely to remember lightweight preferences like session
+              state</span></li>
+          <li>✅ <span><strong>AI calls</strong> — if Gemini AI is enabled, your prompt is sent to Google's Gemini API;
+              no other data is attached</span></li>
+        </ul>
+      </div>
+
+      <!-- Open Source -->
+      <div class="about-panel" id="panel-opensource">
+        <div class="about-panel-hero">
+          <div class="about-panel-icon">💻</div>
+          <h2>Open Source</h2>
+          <p class="about-panel-sub">Built in public, for the community</p>
+        </div>
+        <p>CareerAI's career data and roadmap structure are <strong>fully open source</strong>. We believe that career
+          knowledge should be freely accessible and community-maintained.</p>
+        <div class="opensource-stats">
+          <div class="os-stat"><span class="os-stat-num">50+</span><span class="os-stat-label">Career Roadmaps</span>
+          </div>
+          <div class="os-stat"><span class="os-stat-num">200+</span><span class="os-stat-label">Learning Steps</span>
+          </div>
+          <div class="os-stat"><span class="os-stat-num">∞</span><span class="os-stat-label">Contributors Welcome</span>
+          </div>
+        </div>
+        <ul class="about-list">
+          <li>🍴 <span><strong>Fork</strong> the repo on GitHub</span></li>
+          <li>➕ <span><strong>Add</strong> a new career JSON to <code>js/data.js</code></span></li>
+          <li>✅ <span><strong>Submit</strong> a pull request — we review &amp; merge within 48 hrs</span></li>
+          <li>🌟 <span><strong>Star</strong> the project to help others discover it</span></li>
+        </ul>
+        <div class="about-cta-row">
+          <a href="https://github.com" target="_blank" class="about-cta-btn" style="text-decoration:none">⭐ View on
+            GitHub</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Nav scroll shrink -->
+  <script>
+    window.addEventListener('scroll', () => {
+      document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 50);
+    });
+  </script>
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/data-extended.js"></script>
+  <script src="js/ai-generator.js"></script>
+  <script src="js/app.js"></script>
+</body>
+
+</html>
